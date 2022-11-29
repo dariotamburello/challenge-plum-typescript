@@ -9,11 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("./app");
-function main() {
+exports.connect = void 0;
+const promise_1 = require("mysql2/promise");
+function connect() {
     return __awaiter(this, void 0, void 0, function* () {
-        const app = new app_1.App(3000);
-        yield app.listen();
+        const connection = yield (0, promise_1.createPool)({
+            host: 'db4free.net',
+            port: 3306,
+            user: 'tamburello_user',
+            password: 'Fc.1025A',
+            database: 'tamburello_db',
+            connectionLimit: 10
+        });
+        return connection;
     });
 }
-main();
+exports.connect = connect;

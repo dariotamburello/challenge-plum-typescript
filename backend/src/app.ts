@@ -3,6 +3,7 @@ import morgan from 'morgan'
 
 import IndexRoutes from "./routes/index.routes"
 import PizzaRoutes from "./routes/pizzas.routes"
+import OrdersRoutes from "./routes/orders.routes";
 
 export class App{
     private app:Application
@@ -27,6 +28,7 @@ export class App{
     routes(){
         this.app.use(IndexRoutes)
         this.app.use('/pizzas', PizzaRoutes)
+        this.app.use('/orders', OrdersRoutes)
     }
 
     async listen (){

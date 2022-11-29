@@ -9,11 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("./app");
-function main() {
+exports.createPizza = exports.getPizzas = void 0;
+const database_1 = require("../database");
+function getPizzas(_req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const app = new app_1.App(3000);
-        yield app.listen();
+        const conn = yield (0, database_1.connect)();
+        const posts = yield conn.query('SELECT * FROM pizzas');
+        return res.json(posts[0]);
     });
 }
-main();
+exports.getPizzas = getPizzas;
+function createPizza(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield (0, database_1.connect)();
+        yield conn.query('INSERT INTO pizzas SET ?', [req.body]);
+        return res.json({
+            message: 'Order created'
+        });
+    });
+}
+exports.createPizza = createPizza;
